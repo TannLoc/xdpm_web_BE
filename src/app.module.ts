@@ -6,10 +6,12 @@ import {EnvConfigurationModule} from '@Infrastructure/env-configuration';
 import {ServiceModule} from '@Infrastructure/service/service.module';
 import { RepositoryOrmModule } from '@Infrastructure/typeorm/postgres/imp-repository/postgres-repository.module';
 import { AuthModule } from '@Presentation/auth/auth.module';
+import { BrandModule } from '@Presentation/brand/brand.module';
+import { MapperModule } from '@Infrastructure/service/mapper/mapper.module';
 
 
 @Module({
-    imports: [EnvConfigurationModule, ServiceModule,RepositoryOrmModule, AuthModule ],
+    imports: [EnvConfigurationModule,MapperModule, ServiceModule,RepositoryOrmModule, AuthModule,BrandModule ],
     controllers: [AppController],
     providers: [
         {
