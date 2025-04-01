@@ -8,10 +8,11 @@ import { RepositoryOrmModule } from '@Infrastructure/typeorm/postgres/imp-reposi
 import { AuthModule } from '@Presentation/auth/auth.module';
 import { BrandModule } from '@Presentation/brand/brand.module';
 import { MapperModule } from '@Infrastructure/service/mapper/mapper.module';
+import { UploadModule } from '@Presentation/upload/upload.module';
 
 
 @Module({
-    imports: [EnvConfigurationModule,MapperModule, ServiceModule,RepositoryOrmModule, AuthModule,BrandModule ],
+    imports: [EnvConfigurationModule,MapperModule, ServiceModule,RepositoryOrmModule, AuthModule,BrandModule,UploadModule ],
     controllers: [AppController],
     providers: [
         {
