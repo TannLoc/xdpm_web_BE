@@ -11,10 +11,13 @@ import { MapperModule } from '@Infrastructure/service/mapper/mapper.module';
 import { UploadModule } from '@Presentation/upload/upload.module';
 import { PicklistModule } from '@Presentation/picklist/picklist.module';
 import { UserModule } from '@Presentation/user/user.module';
+import { CartModule } from '@Presentation/cart/cart.module';
+import { ShipmentModule } from '@Presentation/shipment/shipment.module';
+import { ProductModule } from '@Presentation/product/product.module';
 
 
 @Module({
-    imports: [EnvConfigurationModule,MapperModule, ServiceModule,RepositoryOrmModule, AuthModule,BrandModule,UploadModule,PicklistModule,UserModule ],
+    imports: [EnvConfigurationModule,MapperModule, ServiceModule,RepositoryOrmModule, AuthModule,BrandModule,UploadModule,PicklistModule,UserModule,CartModule, ShipmentModule ,ProductModule ],
     controllers: [AppController],
     providers: [
         {
