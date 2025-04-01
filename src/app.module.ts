@@ -10,10 +10,11 @@ import { BrandModule } from '@Presentation/brand/brand.module';
 import { MapperModule } from '@Infrastructure/service/mapper/mapper.module';
 import { UploadModule } from '@Presentation/upload/upload.module';
 import { PicklistModule } from '@Presentation/picklist/picklist.module';
+import { UserModule } from '@Presentation/user/user.module';
 
 
 @Module({
-    imports: [EnvConfigurationModule,MapperModule, ServiceModule,RepositoryOrmModule, AuthModule,BrandModule,UploadModule,PicklistModule ],
+    imports: [EnvConfigurationModule,MapperModule, ServiceModule,RepositoryOrmModule, AuthModule,BrandModule,UploadModule,PicklistModule,UserModule ],
     controllers: [AppController],
     providers: [
         {
