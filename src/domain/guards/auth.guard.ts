@@ -26,12 +26,14 @@ export class AuthGuard implements CanActivate {
         }
         let payload;
         if (!token) {
+            console.log("missing token")
             throw new UnauthorizedException('AUTH001', ErrorCode.AUTH001);
         }
         try {
             payload = await this.jwtService.validateAccessToken(token);
             request['payload'] = payload;
         } catch (error) {
+            console.log(error)
             throw new UnauthorizedException('AUTH001', ErrorCode.AUTH001);
         }
         const user = await this.userRepositoryOrm.findOneById(payload.userId);
