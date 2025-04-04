@@ -54,7 +54,8 @@ export class AuthController {
         const result = await this.LoginByPhoneNumberUseCase.execute(param);
         response.cookie('accessToken', result.accessToken, {
             httpOnly: true,
-            sameSite: 'lax',
+            sameSite: 'none',
+            secure: true,
         });
         return result;
     }
@@ -70,7 +71,8 @@ export class AuthController {
         const result = await this.refreshTokenUseCase.execute(payload.userId);
         response.cookie('accessToken', result.accessToken, {
             httpOnly: true,
-            sameSite: 'lax',
+            sameSite: 'none',
+            secure: true,
         });
         return result;
     }

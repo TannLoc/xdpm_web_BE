@@ -70,9 +70,7 @@ async function bootstrap() {
     });
 
     //swagger
-    if (isDevelopment) {
         setupSwagger(app);
-    }
 
     // interceptors
     app.useGlobalInterceptors(new LoggerInterceptor(new LoggerService()));
