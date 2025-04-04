@@ -41,6 +41,15 @@ export class UserRepositoryOrm {
         });
     }
 
+    async findByPhoneNumberOrEmail(identifier: string){
+        return await this.repository.findOne({
+            where: [
+                {phoneNumber: identifier},
+                {email: identifier},
+            ]
+        });
+    }
+
     async checkExistsEmail(email: string){
         return await this.repository.exists({
             where: {

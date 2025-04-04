@@ -45,6 +45,9 @@ export enum ErrorCode {
     V058 = 'productId must be a number',
     V059 = 'quantity cannot be less than 1',
 
+    V060="identifier is required",
+    V061="identifier must be a string",
+
     // Authentication Error Messages
     AUTH001 = "Invalid access token",
     AUTH002 = "Invalid identifier or password",

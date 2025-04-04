@@ -5,10 +5,10 @@ import {IsNotEmpty, IsString, MaxLength, MinLength} from 'class-validator';
 import {ErrorCode} from '@Domain/constants';
 
 export class LoginCustomerParamDto {
-    @IsNotEmpty({message: ErrorCode.V020})
-    @IsString({message: ErrorCode.V021})
+    @IsNotEmpty({message: ErrorCode.V060})
+    @IsString({message: ErrorCode.V061})
     @ApiProperty({required: true})
-    phoneNumber: string;
+    identifier: string;
 
     @IsNotEmpty({message: ErrorCode.V013})
     @IsString({message: ErrorCode.V017})

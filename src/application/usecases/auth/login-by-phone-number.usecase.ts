@@ -17,9 +17,9 @@ export class LoginByPhoneNumberUseCase {
     }
 
     async execute(param: LoginCustomerParamDto) {
-        const {phoneNumber, password} = param;
+        const {identifier, password} = param;
 
-        const user = await this.userRepositoryOrm.findByPhoneNumber(phoneNumber);
+        const user = await this.userRepositoryOrm.findByPhoneNumberOrEmail(identifier);
         const checkPassword =user ? await this.bcryptService.compare(password, user.password) : null;
 
         if (!user || !checkPassword ||  user.role == UserRole.ADMIN) throw new BadRequestException('AUTH002', ErrorCode.AUTH002);
