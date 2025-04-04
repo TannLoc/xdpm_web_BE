@@ -33,9 +33,8 @@ export class AuthManagementController {
     async login(@Body() param: LoginEmployeeParamDto, @Res({passthrough: true}) response: Response) {
         const result = await this.loginEmployeeUseCase.execute(param);
         response.cookie('accessToken', result.accessToken, {
-            secure: true,
             httpOnly: true,
-            sameSite: 'none',
+            sameSite: 'lax',
         });
         return result;
     }
@@ -50,9 +49,8 @@ export class AuthManagementController {
         var payload = request['payload'];
         const result = await this.refreshTokenUseCase.execute(payload.userId);
         response.cookie('accessToken', result.accessToken, {
-            secure: true,
             httpOnly: true,
-            sameSite: 'none',
+            sameSite: 'lax',
         });
         return result;
     }

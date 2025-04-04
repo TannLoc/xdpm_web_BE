@@ -40,9 +40,8 @@ export class AuthController {
         var result = await this.registerUseCase.execute(param);
 
         response.cookie('accessToken', result.accessToken, {
-            secure: true,
             httpOnly: true,
-            sameSite: 'none',
+            sameSite: 'lax',
         });
         return result;
     }
@@ -54,9 +53,8 @@ export class AuthController {
     async login(@Body() param: LoginCustomerParamDto, @Res({passthrough: true}) response: Response) {
         const result = await this.LoginByPhoneNumberUseCase.execute(param);
         response.cookie('accessToken', result.accessToken, {
-            secure: true,
             httpOnly: true,
-            sameSite: 'none',
+            sameSite: 'lax',
         });
         return result;
     }
@@ -71,9 +69,8 @@ export class AuthController {
         var payload = request['payload'];
         const result = await this.refreshTokenUseCase.execute(payload.userId);
         response.cookie('accessToken', result.accessToken, {
-            secure: true,
             httpOnly: true,
-            sameSite: 'none',
+            sameSite: 'lax',
         });
         return result;
     }
