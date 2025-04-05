@@ -14,6 +14,7 @@ import {UserEntity} from './user.entity';
 import {DeliveryEntity} from './delivery.entity';
 import {OrderState} from '@Domain/constants';
 import {OrderItemEntity} from '@Domain/entity/order-item.entity';
+import { PaymentEntity } from './payment.entity';
 
 @Entity('orders')
 export class OrderEntity {
@@ -44,6 +45,13 @@ export class OrderEntity {
     @OneToOne(() => DeliveryEntity, (item)=> item.order,{cascade:true})
     @JoinColumn({name: 'delivery_id'})
     delivery: DeliveryEntity;
+
+       @OneToOne(()=>PaymentEntity,{cascade:true,eager: true})
+        @JoinColumn({
+            name: 'payment_id',
+        })
+        payment: PaymentEntity
+    
 
     //Base
     @CreateDateColumn({name: 'created_at', type: 'timestamp with time zone'})

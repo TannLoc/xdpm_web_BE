@@ -9,3 +9,4 @@ export * from './brand.repository';
 export * from './product.repository';
 export * from './shipment.repository';
 export * from './user.repository';
+export * from './payment.repository';

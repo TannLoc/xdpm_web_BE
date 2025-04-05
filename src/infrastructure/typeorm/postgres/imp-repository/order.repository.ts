@@ -40,6 +40,17 @@ export class OrderRepositoryOrm {
         });
     }
 
+    async getPaymentByCode(code: string): Promise<OrderEntity | null> {
+        return await this.repository.findOne({
+            where: {
+                code
+            },
+            relations:{
+                payment: true
+            }
+        });
+    }
+
 
     async updateOne(param: OrderEntity): Promise<boolean> {
         var result = await this.repository.save(param);

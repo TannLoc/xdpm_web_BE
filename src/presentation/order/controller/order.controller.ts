@@ -1,4 +1,4 @@
-import {Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, Query, Req, UseGuards} from '@nestjs/common';
+import {Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, Query, Req, Res, UseGuards} from '@nestjs/common';
 import {ORDERS_ROUTERS, UserRole} from '@Domain/constants';
 import {ApiTags} from '@nestjs/swagger';
 import {ApiResponse, PaginationResponse, Roles} from '@Infrastructure/decorator';
@@ -18,7 +18,12 @@ import {
 import {AuthGuard} from '@Domain/guards';
 import {OrderEntity} from '@Domain/entity';
 import {ActionOrderCustomerUsecase} from "@Application/usecases/order/action-order-customer.usecase";
-
+import { Request as RequestExpress, Response } from 'express';
+import { CreatedOrderResultDto } from '../dto/result/created-order.result.dto';
+import { PaymentOrderResultDto } from '../dto/result/payment-order.result.dto';
+import { UpdatePaymentStateOrderUsecase } from '@Application/usecases/order/update-payment-status.usecase';
+import { ReturnQueryFromVNPay } from '../dto/param/call-back-vnpay.param.dto';
+import { EnvConfigurationService } from '@Infrastructure/env-configuration';
 @UseGuards(AuthGuard)
 @Roles(UserRole.CUSTOMER)
 @ApiTags('Order Controller')
@@ -29,17 +34,34 @@ export class OrderController {
         private readonly findOrderByUserIdUsecase: FindOrdersByUserIdUsecase,
         private readonly findOneOrderUsecase: FindOneOrderUsecase,
         private readonly updateOrderUsecase: UpdateOrderUsecase,
-        private readonly actionOrderUsecase: ActionOrderCustomerUsecase
+        private readonly actionOrderUsecase: ActionOrderCustomerUsecase,
+        private readonly updatePaymentStateOrderUsecase:UpdatePaymentStateOrderUsecase,
+        private readonly configService : EnvConfigurationService
     ) {
     }
 
     @Post(ORDERS_ROUTERS.CREATE)
     @HttpCode(HttpStatus.OK)
-    @ApiResponse({type: CreatedResultDto})
-    async add(@Body() param: CreateOrderParamDto, @Req() request: Request) {
+    @ApiResponse({type: CreatedOrderResultDto})
+    async add(@Body() param: CreateOrderParamDto, @Req() request: RequestExpress) {
         var payload = request['payload'];
-        const result = await this.createOrderUseCase.execute(payload.userId, param);
+        const result = await this.createOrderUseCase.execute(payload.userId, param,request);
         return result;
+    }
+
+    @Get('callBack')
+    @HttpCode(HttpStatus.OK)
+    @ApiResponse({type: PaymentOrderResultDto})
+    async vnPayCallBack(@Query() param: ReturnQueryFromVNPay,@Res() res: Response) {
+        console.log(param)
+        const result = await this.updatePaymentStateOrderUsecase.execute(param);
+        const feUrl = this.configService.getUrlFeCallBaclPayment();
+        const redirectUrl = new URL(feUrl);
+        redirectUrl.searchParams.append('orderCode', result.orderCode);
+        redirectUrl.searchParams.append('isSuccess', String(result.isSuccess));
+        redirectUrl.searchParams.append('payDate', result.payDate.toString());
+        redirectUrl.searchParams.append('amount', result.amount.toString());
+        return res.redirect(redirectUrl.toString());
     }
 
     @Get(ORDERS_ROUTERS.FIND)

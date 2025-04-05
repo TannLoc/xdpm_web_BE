@@ -9,6 +9,7 @@ import {
     InventoryEntity,
     OrderEntity,
     OrderItemEntity,
+    PaymentEntity,
     PicklistEntity,
     ProductEntity,
     ShipmentEntity,
@@ -22,6 +23,7 @@ import {
     InventoryRepositoryOrm,
     OrderItemRepositoryOrm,
     OrderRepositoryOrm,
+    PaymentRepositoryOrm,
     PicklistRepositoryOrm,
     ProductRepositoryOrm,
     ShipmentRepositoryOrm,
@@ -44,6 +46,7 @@ import {
             CartEntity,
             DeliveryEntity,
             OrderItemEntity,
+            PaymentEntity
         ]),
     ],
     providers: [
@@ -58,6 +61,7 @@ import {
         CartRepositoryOrm,
         DeliveryRepositoryOrm,
         OrderItemRepositoryOrm,
+        PaymentRepositoryOrm
     ],
     exports: [
         CloudinaryRepositoryOrm,
@@ -71,6 +75,7 @@ import {
         CartRepositoryOrm,
         DeliveryRepositoryOrm,
         OrderItemRepositoryOrm,
+        PaymentRepositoryOrm
     ],
 })
 export class RepositoryOrmModule {

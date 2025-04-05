@@ -6,3 +6,15 @@ export enum OrderState {
     RECEIVED = 'RECEIVED',
     RETURNED = 'RETURNED'
 }
+ 
+export enum OrderPaymentType{
+CASH="CASH",
+VNPAY="VNPAY",
+}
+
+export enum PaymentState{
+    PROCESSING="PROCESSING",
+    CANCEL = "CANCEL",
+    SUCCESS ="SUCCESS",
+    FAIL ="FAIL"
+}

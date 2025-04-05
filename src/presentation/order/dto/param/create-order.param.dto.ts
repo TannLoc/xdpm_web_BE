@@ -1,7 +1,8 @@
 
 import {ApiProperty, ApiPropertyOptional} from '@nestjs/swagger';
-import {IsNotEmpty, IsNumber, IsObject, IsOptional} from 'class-validator';
+import {IsEnum, IsNotEmpty, IsNumber, IsObject, IsOptional} from 'class-validator';
 import {DeliveryOrderParamDto} from "@Presentation/order/dto/param/delivery-order.param.dto";
+import { OrderPaymentType } from '@Domain/constants';
 
 export class CreateOrderParamDto {
     @IsOptional()
@@ -15,4 +16,9 @@ export class CreateOrderParamDto {
     @ApiProperty()
     @IsObject()
     delivery: DeliveryOrderParamDto;
+
+    @IsNotEmpty()
+    @IsEnum(OrderPaymentType)
+    @ApiProperty()
+    paymentType : OrderPaymentType
 }

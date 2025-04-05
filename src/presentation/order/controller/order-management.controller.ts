@@ -18,7 +18,7 @@ import {
 import {AuthGuard} from '@Domain/guards';
 import {OrderEntity} from '@Domain/entity';
 import {CreatedResultDto, UpdatedResultDto} from '@Presentation/dto/result';
-
+import { Request as RequestExpress } from 'express';
 @UseGuards(AuthGuard)
 @Roles(UserRole.ADMIN)
 @ApiTags('Order Management Controller')
@@ -36,8 +36,8 @@ export class OrderManagementController {
     @Post(ORDERS_ROUTERS.CREATE)
     @HttpCode(HttpStatus.OK)
     @ApiResponse({type: CreatedResultDto})
-    async add(@Body() param: CreateOrderParamDto, @Req() request: Request) {
-        const result = await this.createOrderUseCase.execute(param.customerId, param);
+    async add(@Body() param: CreateOrderParamDto, @Req() request: RequestExpress) {
+        const result = await this.createOrderUseCase.execute(param.customerId, param,request);
         return result;
     }
 

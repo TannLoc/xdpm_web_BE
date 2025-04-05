@@ -6,6 +6,14 @@ export class EnvConfigurationService {
     constructor(private readonly configService: ConfigService) {
     }
 
+    getCallBackUrlVnPay(): string {
+        return this.configService.get<string>('VNPAY_CALLBACK');
+    }
+
+    getUrlFeCallBaclPayment(): string {
+        return this.configService.get<string>('FE_CALL_BACK_PAYMENT_URL');
+    }
+
     //Get Config Cloudinary
     getCloudinaryCloudName(): string {
         return this.configService.get<string>('CLOUDINARY_CLOUD_NAME');
@@ -115,5 +123,13 @@ export class EnvConfigurationService {
 
     getMailOtpTemplate(): string {
         return this.configService.get<string>('MAIL_OTP_TEMPLATE');
+    }
+
+    getVNPSecureSecret(): string {
+        return this.configService.get<string>('VNPAY_SECURE_SECRET');
+    }
+
+    getVNPtmnCode(): string {
+        return this.configService.get<string>('VNPAY_TMN_CODE');
     }
 }

@@ -9,3 +9,4 @@ export * from './product.entity';
 export * from './user.entity';
 export * from './shipment.entity';
 export * from './delivery.entity';
+export * from './payment.entity'
