@@ -29,11 +29,13 @@ export class LoginByGoogleUseCase {
         role: UserRole.CUSTOMER
       });
 
-      const result = await this.userRepositoryOrm.create(user);
-      if (!result) throw new BadRequestException('AUTH009', ErrorCode.AUTH009);
+       result = await this.userRepositoryOrm.create(user);
+   
     }
 
-    if (result.role == UserRole.ADMIN) throw new BadRequestException('AUTH002', ErrorCode.AUTH002);
+    if (!result) throw new BadRequestException('AUTH009', ErrorCode.AUTH009);
+
+    if ( result.role == UserRole.ADMIN) throw new BadRequestException('AUTH002', ErrorCode.AUTH002);
 
     const accessToken = await this.jwtService.generateAccessToken({
       userId: result.id,
