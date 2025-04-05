@@ -34,7 +34,8 @@ export class AuthManagementController {
         const result = await this.loginEmployeeUseCase.execute(param);
         response.cookie('accessToken', result.accessToken, {
             httpOnly: true,
-            sameSite: 'lax',
+            sameSite: 'none',
+            secure: true,
         });
         return result;
     }
