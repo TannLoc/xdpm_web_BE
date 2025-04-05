@@ -17,8 +17,8 @@ export class LoginByGoogleUseCase {
   ) {}
 
   async execute(param: LoginGoogleParamDto) {
-    const { creadential } = param;
-    const payload = this.jwtService.decodeJwtPayload(creadential);
+    const { credential } = param;
+    const payload = this.jwtService.decodeJwtPayload(credential);
 
     let result = await this.userRepositoryOrm.findByPhoneNumberOrEmail(payload.email);
 

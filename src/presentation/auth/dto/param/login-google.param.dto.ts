@@ -6,5 +6,5 @@ export class LoginGoogleParamDto {
     @IsNotEmpty({message: ErrorCode.V062})
     @IsString({message: ErrorCode.V063})
     @ApiProperty({required: true})
-    creadential: string;
+    credential: string;
 }

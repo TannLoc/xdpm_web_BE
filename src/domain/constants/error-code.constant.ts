@@ -48,8 +48,8 @@ export enum ErrorCode {
     V060="identifier is required",
     V061="identifier must be a string",
 
-    V062="creadential is required",
-    V063="creadential must be a string",
+    V062="credential is required",
+    V063="credential must be a string",
 
     // Authentication Error Messages
     AUTH001 = "Invalid access token",
@@ -86,7 +86,7 @@ export enum ErrorCode {
     ORDER007 = "Inventory does not exist",
     ORDER008 = "Product out of stock",
     ORDER009 = "Cannot update order",
-
+    ORDER010 = "Cart not found",
     //Picklist
     PL001 = 'Failed to create order',
 
