@@ -18,8 +18,9 @@ import {JwtRefreshGuard} from '@Domain/guards';
 import {ApiResponse, Roles} from '@Infrastructure/decorator';
 
 //Dto
-import {LoginCustomerParamDto, RegisterParamDto} from '../dto/param';
+import {LoginCustomerParamDto, LoginGoogleParamDto, RegisterParamDto} from '../dto/param';
 import {AuthResultDto} from '../dto/result';
+import { LoginByGoogleUseCase } from '@Application/usecases/auth/login-by-google.usecase';
 
 @ApiTags('Auth Controller')
 @Controller(AUTH_ROUTERS.CONTROLLER)
@@ -29,6 +30,7 @@ export class AuthController {
         private readonly LoginByPhoneNumberUseCase: LoginByPhoneNumberUseCase,
         private readonly refreshTokenUseCase: RefreshTokenUseCase,
         private readonly logoutUseCase: LogoutUseCase,
+        private readonly loginByGoogleUseCase:LoginByGoogleUseCase
     ) {
     }
 
@@ -52,6 +54,19 @@ export class AuthController {
     @ApiResponse({type: AuthResultDto})
     async login(@Body() param: LoginCustomerParamDto, @Res({passthrough: true}) response: Response) {
         const result = await this.LoginByPhoneNumberUseCase.execute(param);
+        response.cookie('accessToken', result.accessToken, {
+            httpOnly: true,
+            sameSite: 'none',
+            secure: true,
+        });
+        return result;
+    }
+
+    @Post(`${AUTH_ROUTERS.LOGIN}/google`)
+    @HttpCode(HttpStatus.OK)
+    @ApiResponse({type: AuthResultDto})
+    async loginGoogle(@Body() param: LoginGoogleParamDto, @Res({passthrough: true}) response: Response) {
+        const result = await this.loginByGoogleUseCase.execute(param);
         response.cookie('accessToken', result.accessToken, {
             httpOnly: true,
             sameSite: 'none',

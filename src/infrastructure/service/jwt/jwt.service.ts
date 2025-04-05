@@ -4,6 +4,16 @@ import {EnvConfigurationService} from '@Infrastructure/env-configuration';
 import {UnauthorizedException} from '@Infrastructure/exception';
 import {ErrorCode} from '@Domain/constants';
 
+interface DecodedJwtPayload {
+    sub: string;
+    email: string;
+    email_verified: boolean;
+    name: string;
+    given_name: string;
+    family_name: string;
+    picture: string;
+}
+
 @Injectable()
 export class JwtService {
     private readonly publicKey;
@@ -46,5 +56,25 @@ export class JwtService {
             secret: this.publicKey,
             ignoreExpiration: true,
         });
+    }
+    decodeJwtPayload(token: string): DecodedJwtPayload | null {
+        try {
+            const payloadBase64 = token.split('.')[1];
+            const payloadJson = Buffer.from(payloadBase64, 'base64').toString('utf-8');
+            const payload = JSON.parse(payloadJson);
+    
+            return {
+                sub: payload.sub,
+                email: payload.email,
+                email_verified: payload.email_verified,
+                name: payload.name,
+                given_name: payload.given_name,
+                family_name: payload.family_name,
+                picture: payload.picture
+            } as DecodedJwtPayload;
+        } catch (error) {
+            console.error('Failed to decode JWT payload:', error);
+            return null;
+        }
     }
 }

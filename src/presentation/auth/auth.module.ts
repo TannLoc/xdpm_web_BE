@@ -7,11 +7,12 @@ import {
     RefreshTokenUseCase,
     RegisterUserUseCase
 } from '@Application/usecases/auth';
+import { LoginByGoogleUseCase } from '@Application/usecases/auth/login-by-google.usecase';
 
 @Module({
     imports: [],
     controllers: [AuthController, AuthManagementController],
-    providers: [LoginByUsernameUseCase, LogoutUseCase, RefreshTokenUseCase, LoginByPhoneNumberUseCase, RegisterUserUseCase],
+    providers: [LoginByGoogleUseCase,LoginByUsernameUseCase, LogoutUseCase, RefreshTokenUseCase, LoginByPhoneNumberUseCase, RegisterUserUseCase],
 })
 export class AuthModule {
 }

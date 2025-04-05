@@ -37,10 +37,10 @@ export class UserEntity {
     @Column({name: 'email'})
     email: string;
 
-    @Column({name: 'phone_number'})
+    @Column({name: 'phone_number',nullable:true})
     phoneNumber: string;
 
-    @Column({name: 'password'})
+    @Column({name: 'password', nullable: true})
     password: string;
 
     @Column({name: 'refresh_token', nullable: true})

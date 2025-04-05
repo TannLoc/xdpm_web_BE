@@ -48,6 +48,9 @@ export enum ErrorCode {
     V060="identifier is required",
     V061="identifier must be a string",
 
+    V062="creadential is required",
+    V063="creadential must be a string",
+
     // Authentication Error Messages
     AUTH001 = "Invalid access token",
     AUTH002 = "Invalid identifier or password",
