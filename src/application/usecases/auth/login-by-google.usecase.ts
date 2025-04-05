@@ -26,6 +26,7 @@ export class LoginByGoogleUseCase {
      const user = new UserEntity({
         fullName: payload.name,
         email: payload.email,
+        role: UserRole.CUSTOMER
       });
 
       const result = await this.userRepositoryOrm.create(user);
