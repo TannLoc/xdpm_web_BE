@@ -31,7 +31,9 @@ export class AddProductToCartUseCase {
         if (cart) {
             cart.quantity += 1;
             const result = await this.cartRepositoryOrm.updateOne(cart);
-            throw new BadRequestException('CART003', ErrorCode.CART003);
+            return new CreatedResultDto({
+                id: cart.id,
+            });
         }
 
         const newCart = new CartEntity({

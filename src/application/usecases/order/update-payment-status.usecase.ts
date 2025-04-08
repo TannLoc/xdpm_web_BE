@@ -12,7 +12,7 @@ export class UpdatePaymentStateOrderUsecase {
     ) {}
 
     async execute(param: ReturnQueryFromVNPay) {
-        param.vnp_Amount = param.vnp_Amount/ 100;
+        param.vnp_Amount = param.vnp_Amount;
         const isValid = await this.vnPayService.verifyReturnUrl(param);
         if (!isValid) {
             throw new Error("Invalid VNPAY signature.");
